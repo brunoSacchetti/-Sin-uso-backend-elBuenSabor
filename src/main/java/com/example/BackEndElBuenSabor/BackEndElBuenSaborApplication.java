@@ -8,6 +8,12 @@ public class BackEndElBuenSaborApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BackEndElBuenSaborApplication.class, args);
+		System.out.println("Estoy Funcionando");
 	}
+
+
+
+
+
 
 }
