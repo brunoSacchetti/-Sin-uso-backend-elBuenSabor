@@ -27,5 +27,8 @@ public class Domicilio extends BaseEntidad{
     @JoinColumn(name = "localidad_id")
     private Localidad localidad;
 
+    @OneToOne
+    @JoinColumn(name = "fk_cliente")
+    private Cliente cliente;
 
 }

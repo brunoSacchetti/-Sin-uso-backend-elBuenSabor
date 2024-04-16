@@ -2,6 +2,7 @@ package com.example.BackEndElBuenSabor.domains.entities;
 
 import com.example.BackEndElBuenSabor.enums.Rol;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,4 +26,10 @@ public class Empleado extends BaseEntidad{
     private String email;
 
     private Rol perfil;
+
+    @OneToOne(mappedBy = "empleado")
+    private Usuario usuario;
+
+
+
 }

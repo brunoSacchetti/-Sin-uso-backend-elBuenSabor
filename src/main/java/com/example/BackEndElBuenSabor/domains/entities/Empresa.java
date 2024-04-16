@@ -23,12 +23,14 @@ public class Empresa extends BaseEntidad{
 
     private int cuil;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinTable(
+    //EMPRESA - SUCURSAL
+    @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
+
+    /*@JoinTable(
             name = "empresa_sucursal", // Nombre de la tabla intermedia
             joinColumns = @JoinColumn(name = "empresa_id"), // Columna que hace referencia a Empresa
             inverseJoinColumns = @JoinColumn(name = "sucursal_id") // Columna que hace referencia a SucursalEmpresa
-    )
+    )*/
     private List<SucursalEmpresa> sucursales = new ArrayList<>();
 
 }

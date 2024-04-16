@@ -1,7 +1,6 @@
 package com.example.BackEndElBuenSabor.domains.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +17,14 @@ public class Usuario extends BaseEntidad{
     private String auth0Id;
 
     private String username;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_empleado")
+    private Empleado empleado;
+
+    @OneToOne
+    @JoinColumn(name = "fk_cliente")
+    private Cliente cliente;
 
 
 }

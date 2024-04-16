@@ -1,6 +1,7 @@
 package com.example.BackEndElBuenSabor.domains.entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,5 +23,13 @@ public class Cliente extends BaseEntidad{
     private String telefono;
 
     private String email;
+
+    @OneToOne(mappedBy = "cliente")
+    private Usuario usuario;
+
+    @OneToOne(mappedBy = "cliente")
+    private Domicilio domicilio;
+
+
 
 }
