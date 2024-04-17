@@ -6,6 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,8 +31,5 @@ public class Domicilio extends BaseEntidad{
     @JoinColumn(name = "localidad_id")
     private Localidad localidad;
 
-    @OneToOne
-    @JoinColumn(name = "fk_cliente")
-    private Cliente cliente;
 
 }

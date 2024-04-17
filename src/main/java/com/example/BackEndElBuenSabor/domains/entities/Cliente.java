@@ -1,12 +1,13 @@
 package com.example.BackEndElBuenSabor.domains.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -24,12 +25,13 @@ public class Cliente extends BaseEntidad{
 
     private String email;
 
-    @OneToOne(mappedBy = "cliente")
+    // CLIENTE - PEDIDO
+    @OneToMany
+    @JoinColumn(name = "cliente_id")
+    private Set<Pedido> pedidosCliente = new HashSet<Pedido>();
+
+    // CLIENTE - USUARIO
+    @OneToOne
     private Usuario usuario;
-
-    @OneToOne(mappedBy = "cliente")
-    private Domicilio domicilio;
-
-
 
 }

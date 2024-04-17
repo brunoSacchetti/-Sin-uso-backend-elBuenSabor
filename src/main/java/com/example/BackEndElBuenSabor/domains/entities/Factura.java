@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -17,9 +18,9 @@ import java.util.Date;
 @Setter
 @Getter
 @Table(name = "factura_venta")
-public class FacturaVenta extends BaseEntidad{
+public class Factura extends BaseEntidad{
 
-    private Date fechaFacturacion;
+    /*private Date fechaFacturacion;
 
     private String numeroComprobante;
 
@@ -31,5 +32,20 @@ public class FacturaVenta extends BaseEntidad{
 
     private BigDecimal gastosEnvio;
 
-    private BigDecimal totalVenta;
+    private BigDecimal totalVenta;*/
+
+    private LocalDate fechaFacturacion;
+
+    private Integer mpPaymentId;
+
+    private Integer mpMerchantOrderId;
+
+    private String mpPreferenceId;
+
+    private FormaPago formaPago;
+
+    private Double totalVenta;
+
 }
+
+

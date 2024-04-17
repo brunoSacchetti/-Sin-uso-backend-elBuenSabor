@@ -19,9 +19,6 @@ public class Provincia extends BaseEntidad{
 
     private String nombre;
 
-    @OneToMany(mappedBy = "provincia", cascade = CascadeType.ALL)
-    private List<Localidad> localidades = new ArrayList<Localidad>();
-
     @ManyToOne
     @JoinColumn(name = "pais_id")
     private Pais pais;

@@ -1,7 +1,7 @@
 package com.example.BackEndElBuenSabor.domains.entities;
 
-import com.example.BackEndElBuenSabor.enums.Rol;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -10,24 +10,23 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "empleado")
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
 @Setter
-public class Empleado extends BaseEntidad{
+@Getter
+@Table(name = "detalle_pedido")
+public class DetallePedido extends BaseEntidad{
 
-    private String nombre;
+    private Double subtotal;
 
-    private String apellido;
+    private Integer cantidad;
 
-    private String telefono;
+    @OneToOne
+    private ArticuloManufacturado articuloManufacturado;
 
-    private String email;
+    @OneToOne
+    private ArticuloInsumo articuloInsumo;
 
-    private Rol perfil;
 
-    @OneToOne(mappedBy = "empleado")
-    private Usuario usuario;
 
 }

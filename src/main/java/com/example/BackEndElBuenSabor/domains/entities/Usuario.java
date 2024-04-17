@@ -18,13 +18,4 @@ public class Usuario extends BaseEntidad{
 
     private String username;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_empleado")
-    private Empleado empleado;
-
-    @OneToOne
-    @JoinColumn(name = "fk_cliente")
-    private Cliente cliente;
-
-
 }

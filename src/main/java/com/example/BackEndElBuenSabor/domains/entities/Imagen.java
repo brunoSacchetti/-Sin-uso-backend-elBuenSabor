@@ -7,17 +7,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
-
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
-@Table(name = "factura_venta_detalle")
-public class FacturaVentaDetalle extends BaseEntidad{
-
-    private int cantidad;
-
-    private BigDecimal subTotal;
+@Table(name = "imagen_insumo")
+public class Imagen extends BaseEntidad{
+    private String denominacion;
 }
