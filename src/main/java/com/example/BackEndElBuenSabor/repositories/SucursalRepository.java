@@ -1,6 +1,6 @@
 package com.example.BackEndElBuenSabor.repositories;
 
-import com.example.BackEndElBuenSabor.domains.entities.SucursalEmpresa;
+import com.example.BackEndElBuenSabor.domains.entities.Sucursal;
 
-public interface SucursalEmpresaRepository extends BaseRepository<SucursalEmpresa,Long> {
+public interface SucursalRepository extends BaseRepository<Sucursal,Long> {
 }

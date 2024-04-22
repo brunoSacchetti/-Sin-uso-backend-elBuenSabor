@@ -3,7 +3,9 @@ package com.example.BackEndElBuenSabor.domains.entities;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.springframework.cglib.core.Local;
 
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,13 +17,13 @@ import java.util.Set;
 @ToString
 @SuperBuilder
 @Table(name = "sucursal_empresa")
-public class SucursalEmpresa extends BaseEntidad {
+public class Sucursal extends BaseEntidad {
 
     private String nombre;
 
-    private String horarioApertura;
+    private LocalTime horarioApertura;
 
-    private String horarioCierre;
+    private LocalTime horarioCierre;
 
     // SUCURSAL - DOMICILIO
     @OneToOne

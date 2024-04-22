@@ -7,8 +7,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,7 +22,7 @@ import java.util.Set;
 @Table(name = "pedido_venta")
 public class Pedido extends BaseEntidad{
 
-    private String horaEstimadaFinalizacion;
+    private LocalTime horaEstimadaFinalizacion;
 
     private Double total;
 
@@ -42,7 +42,7 @@ public class Pedido extends BaseEntidad{
 
     // PEDIDO - SUCURSAL EMPRESA
     @ManyToOne
-    private SucursalEmpresa sucursalEmpresa;
+    private Sucursal sucursal;
 
     // PEDIDO - FACTURA
     @OneToOne

@@ -14,7 +14,7 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "detalle_pedido")
 public class DetallePedido extends BaseEntidad{
 
-    private Double subtotal;
+    private Double subTotal;
 
     private Integer cantidad;
 
