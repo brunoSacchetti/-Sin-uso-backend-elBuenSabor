@@ -1,10 +1,8 @@
 package com.example.BackEndElBuenSabor.domains.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,40 +12,25 @@ import java.util.Set;
 @AllArgsConstructor
 @Setter
 @Getter
+@ToString
+@SuperBuilder
 @Table(name = "articulo_manufacturado")
-public class ArticuloManufacturado extends BaseEntidad{
-
-    private String denominacion;
+public class ArticuloManufacturado extends Articulo{
 
     private String descripcion;
 
-    private double precioVenta;
+    private Integer tiempoEstimadoMinutos;
 
-    private double precioCosto;
-
-    private Integer tiempoEstimado;
-
-    // ARTICULO MANUFACTURADO - PROMOCION
-    @ManyToMany(mappedBy = "promocionManufacturado")
-    private Set<Promocion> manufacturadoPromocion = new HashSet<>();
-
-    // ARTICULO MANUFACTURADO - IMAGEN
-    @OneToOne
-    private Imagen imagen;
-
-    // ARTICULO MANUFACTURADO - UNIDAD MEDIDA
-    @ManyToOne
-    @JoinColumn(name = "unidad_medida_id")
-    private UnidadMedida unidadMedida;
+    private String preparacion;
 
 
+    //ARTICULO MANUFACTURADO - ARTICULO MANUFACTURADO DETALLE
+    @OneToMany
+    //SE AGREGA EL JOIN COLUMN PARA QUE JPA NO CREE LA TABLA INTERMEDIA EN UNA RELACION ONE TO MANY
+    //DE ESTA MANERA PONE EL FOREIGN KEY 'articuloManufacturado_id' EN LA TABLA DE LOS MANY
+    @JoinColumn(name = "articulo_manufacturado_id")
+    //SE AGREGA EL BUILDER.DEFAULT PARA QUE BUILDER NO SOBREESCRIBA LA INICIALIZACION DE LA LISTA
+    @Builder.Default
+    private Set<ArticuloManufacturadoDetalle> articuloManufacturadoDetalles = new HashSet<>();
 
-    // METODOS NECESARIOS
-    public double precioCostoCalculado() {
-        return this.precioCosto;
-    }
-
-    public int stockCalculado() {
-        return 0;
-    }
 }

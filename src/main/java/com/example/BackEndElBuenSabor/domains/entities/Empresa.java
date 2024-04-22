@@ -1,10 +1,7 @@
 package com.example.BackEndElBuenSabor.domains.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.transaction.jta.UserTransactionAdapter;
 
 import java.util.ArrayList;
@@ -27,14 +24,9 @@ public class Empresa extends BaseEntidad{
     private int cuil;
 
     //EMPRESA - SUCURSAL
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany // (cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "empresa_id")
-
-    /*@JoinTable(
-            name = "empresa_sucursal", // Nombre de la tabla intermedia
-            joinColumns = @JoinColumn(name = "empresa_id"), // Columna que hace referencia a Empresa
-            inverseJoinColumns = @JoinColumn(name = "sucursal_id") // Columna que hace referencia a SucursalEmpresa
-    )*/
+    @Builder.Default
     private Set<SucursalEmpresa> sucursales = new HashSet<>();
 
 

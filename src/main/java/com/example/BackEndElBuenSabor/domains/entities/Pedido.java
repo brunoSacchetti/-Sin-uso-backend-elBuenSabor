@@ -4,10 +4,8 @@ import com.example.BackEndElBuenSabor.enums.Estado;
 import com.example.BackEndElBuenSabor.enums.FormaPago;
 import com.example.BackEndElBuenSabor.enums.TipoEnvio;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -19,16 +17,12 @@ import java.util.Set;
 @AllArgsConstructor
 @Setter
 @Getter
+@ToString
+@SuperBuilder
 @Table(name = "pedido_venta")
 public class Pedido extends BaseEntidad{
 
     private String horaEstimadaFinalizacion;
-
-    private Double subtotal;
-
-    //private BigDecimal descuento;
-
-    private Double gastosEnvio;
 
     private Double total;
 
@@ -42,19 +36,26 @@ public class Pedido extends BaseEntidad{
 
     private LocalDate fechaPedido;
 
-    //SE AGREGA EL JOIN COLUMN PARA QUE JPA NO CREE LA TABLA INTERMEDIA EN UNA RELACION ONE TO MANY
-    //DE ESTA MANERA PONE EL FOREIGN KEY 'pedido_id' EN LA TABLA DE LOS MANY
-    // PEDIDO - DETALLE PEDIDO
-    @OneToMany(cascade = CascadeType.ALL) // SE COLOCA EL CASCADEO PARA ELIMINAR EL DETALLE PEDIDO CUANDO SE DESEE ELIMINAR
-    @JoinColumn(name = "pedido_id")
-    private Set<DetallePedido> detallePedidos = new HashSet<>();
-
     // PEDIDO - DOMICILIO
     @ManyToOne
     private Domicilio domicilio;
 
+    // PEDIDO - SUCURSAL EMPRESA
+    @ManyToOne
+    private SucursalEmpresa sucursalEmpresa;
+
     // PEDIDO - FACTURA
     @OneToOne
     private Factura factura;
+
+    //SE AGREGA EL JOIN COLUMN PARA QUE JPA NO CREE LA TABLA INTERMEDIA EN UNA RELACION ONE TO MANY
+    //DE ESTA MANERA PONE EL FOREIGN KEY 'pedido_id' EN LA TABLA DE LOS MANY
+
+    // PEDIDO - DETALLE PEDIDO
+    @OneToMany(cascade = CascadeType.ALL) // SE COLOCA EL CASCADEO PARA ELIMINAR EL DETALLE PEDIDO CUANDO SE DESEE ELIMINAR
+    @JoinColumn(name = "pedido_id")
+    @Builder.Default
+    private Set<DetallePedido> detallePedidos = new HashSet<>();
+
 
 }

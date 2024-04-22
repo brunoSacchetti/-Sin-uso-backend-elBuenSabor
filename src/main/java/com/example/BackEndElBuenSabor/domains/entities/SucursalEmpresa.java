@@ -1,10 +1,8 @@
 package com.example.BackEndElBuenSabor.domains.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +12,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Setter
 @Getter
+@ToString
+@SuperBuilder
 @Table(name = "sucursal_empresa")
 public class SucursalEmpresa extends BaseEntidad {
 
@@ -28,22 +28,20 @@ public class SucursalEmpresa extends BaseEntidad {
     @JoinColumn(name = "domicilio_id")
     private Domicilio domicilio;
 
-    // SUCURSAL - LOCALIDAD
-    // SE PUEDE COLOCAR CON JOIN COLUMN O NO, PARA name_id PERSONALIZADO
-    @ManyToOne
-    private Localidad localidad;
-
-    //SE AGREGA EL JOIN COLUMN PARA QUE JPA NO CREE LA TABLA INTERMEDIA EN UNA RELACION ONE TO MANY
-    //DE ESTA MANERA PONE EL FOREIGN KEY 'sucursal_id' EN LA TABLA DE LOS MANY
-    // SUCURSAL - PROMOCION
-    @OneToMany
-    @JoinColumn(name = "sucursal_id")
-    private Set<Promocion> promociones = new HashSet<>();
-
     // SUCURSAL - CATEGORIA
-    @OneToMany
-    @JoinColumn(name = "sucursal_id")
+    @ManyToMany
+    @JoinTable(name = "sucursal_categoria",
+                joinColumns = @JoinColumn(name = "sucursal_id"),
+                inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+    @Builder.Default
     private Set<Categoria> categorias = new HashSet<>();
 
+    // SUCURSAL - PROMOCION
+    @ManyToMany
+    @JoinTable(name = "sucursal_promocion",
+            joinColumns = @JoinColumn(name = "sucursal_id"),
+            inverseJoinColumns = @JoinColumn(name = "promocion_id"))
+    @Builder.Default
+    private Set<Promocion> promociones = new HashSet<>();
 
 }

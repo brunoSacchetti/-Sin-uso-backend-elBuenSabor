@@ -2,10 +2,8 @@ package com.example.BackEndElBuenSabor.domains.entities;
 
 import com.fasterxml.jackson.databind.ser.Serializers;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -17,6 +15,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Setter
 @Getter
+@ToString
+@SuperBuilder
 @Table(name = "promocion")
 public class Promocion extends BaseEntidad {
 
@@ -35,19 +35,17 @@ public class Promocion extends BaseEntidad {
     // PROMOCION - ARTICULO INSUMO
     @ManyToMany
     @JoinTable(
-            name = "promocion_articulo_insumo",
+            name = "promocion_articulo",
             joinColumns = @JoinColumn(name = "promocion_id"),
-            inverseJoinColumns = @JoinColumn(name = "articulo_insumo_id")
+            inverseJoinColumns = @JoinColumn(name = "articulo_id")
     )
+    @Builder.Default
     private Set<ArticuloInsumo> promocionInsumo = new HashSet<ArticuloInsumo>();
 
-    // PROMOCION - ARTICULO MANUFACTURADO
-    @ManyToMany
-    @JoinTable(
-            name = "promocion_articulo_manufacturado",
-            joinColumns = @JoinColumn(name = "promocion_id"),
-            inverseJoinColumns = @JoinColumn(name = "articulo_manufacturado_id")
-    )
-    private Set<ArticuloManufacturado> promocionManufacturado = new HashSet<ArticuloManufacturado>();
+    // PROMOCION - IMAGEN
+    @OneToMany
+    @JoinColumn(name = "promocion_id")
+    @Builder.Default
+    private Set<Imagen> imagenes = new HashSet<>();
 
 }

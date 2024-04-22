@@ -4,10 +4,8 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +15,11 @@ import java.util.List;
 @AllArgsConstructor
 @Setter
 @Getter
+@ToString
+@SuperBuilder
 @Table(name = "pais")
 public class Pais extends BaseEntidad{
 
     private String nombre;
-
-    @OneToMany(mappedBy = "pais", cascade = CascadeType.ALL)
-    private List<Provincia> provincias = new ArrayList<>();
 
 }

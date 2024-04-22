@@ -4,10 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,18 +15,20 @@ import java.util.Set;
 @AllArgsConstructor
 @Setter
 @Getter
+@ToString
+@SuperBuilder
 @Table(name = "categoria_articulo")
 public class Categoria extends BaseEntidad{
+
     private String denominacion;
 
+    // CATEGORIA - ARTICULO
     @OneToMany
     @JoinColumn(name = "categoria_id")
-    private Set<ArticuloManufacturado> categoriaArtManufact = new HashSet<>();
+    @Builder.Default
+    private Set<Articulo> articulos = new HashSet<>();
 
-    @OneToMany
-    @JoinColumn(name = "categoria_id")
-    private Set<ArticuloInsumo> categoriaArtInsumo = new HashSet<>();
-
+    // CATEGORA - CATEGORIA (RECURSIVIDAD)
     @OneToMany
     @JoinColumn(name = "categoria_id")
     private Set<Categoria> subCategorias = new HashSet<>();

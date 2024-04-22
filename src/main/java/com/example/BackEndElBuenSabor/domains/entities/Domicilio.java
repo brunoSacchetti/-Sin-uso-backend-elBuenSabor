@@ -1,10 +1,9 @@
 package com.example.BackEndElBuenSabor.domains.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.HashSet;
 import java.util.List;
@@ -15,6 +14,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Setter
 @Getter
+@ToString
+@SuperBuilder
 @Table(name = "domicilio")
 public class Domicilio extends BaseEntidad{
 
@@ -24,11 +25,12 @@ public class Domicilio extends BaseEntidad{
 
     private Integer codigoPostal;
 
-    @OneToOne(mappedBy = "domicilio")
-    private SucursalEmpresa sucursalEmpresa;
+    private Integer piso;
 
-    @ManyToOne
-    @JoinColumn(name = "localidad_id")
+    private Integer nroDepto;
+
+    // DOMICILIO - LOCALIDAD
+    @ManyToOne // no es necesario joincolumn ya que crea la columna automaticamente
     private Localidad localidad;
 
 

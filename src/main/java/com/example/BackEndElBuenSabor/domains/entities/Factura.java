@@ -3,10 +3,8 @@ package com.example.BackEndElBuenSabor.domains.entities;
 import com.example.BackEndElBuenSabor.enums.FormaPago;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -17,22 +15,10 @@ import java.util.Date;
 @AllArgsConstructor
 @Setter
 @Getter
+@ToString
+@SuperBuilder
 @Table(name = "factura_venta")
 public class Factura extends BaseEntidad{
-
-    /*private Date fechaFacturacion;
-
-    private String numeroComprobante;
-
-    private FormaPago formaPago;
-
-    private BigDecimal subTotal;
-
-    private BigDecimal descuento;
-
-    private BigDecimal gastosEnvio;
-
-    private BigDecimal totalVenta;*/
 
     private LocalDate fechaFacturacion;
 
@@ -41,6 +27,8 @@ public class Factura extends BaseEntidad{
     private Integer mpMerchantOrderId;
 
     private String mpPreferenceId;
+
+    private String mpPaymentType;
 
     private FormaPago formaPago;
 
