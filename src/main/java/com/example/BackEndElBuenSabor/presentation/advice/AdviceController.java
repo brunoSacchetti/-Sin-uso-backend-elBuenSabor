@@ -1,5 +1,6 @@
 package com.example.BackEndElBuenSabor.presentation.advice;
 
+import com.example.BackEndElBuenSabor.domains.dtos.ErrorDto;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class AdviceController {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<ErrorDto> handleEmptyInput(Exception e){
         String errorMsg = e.getClass() + " : " + e.getMessage();
-        logger.error(errorMsg);
+        //logger.error(errorMsg);
         return ResponseEntity.internalServerError()
                 .body(ErrorDto.builder()
                         .errorMsg(e.getMessage())

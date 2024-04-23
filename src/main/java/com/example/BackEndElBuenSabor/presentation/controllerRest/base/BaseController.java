@@ -17,5 +17,5 @@ public interface BaseController <D extends BaseDto, ID extends Serializable>{
 
     D edit(D entity, ID id);
 
-    void delete(ID id);
+    void deleteById(ID id);
 }

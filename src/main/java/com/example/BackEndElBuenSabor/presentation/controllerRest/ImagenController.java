@@ -11,4 +11,6 @@ public class ImagenController extends BaseControllerImpl<Imagen, ImagenDto,Long,
     public ImagenController(ImagenFacadeImpl facade) {
         super(facade);
     }
+
+
 }
