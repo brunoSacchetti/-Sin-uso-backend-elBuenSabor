@@ -1,0 +1,14 @@
+// COMANDOS MYSQL - PEGAR EN UN SCRIPT
+
+DROP DATABASE IF EXISTS buen_sabor;
+CREATE DATABASE buen_sabor;
+USE buen_sabor;
+
+SELECT * FROM sucursal_empresa;
+SELECT * FROM sucursal;
+select * FROM empresa;
+select * from promocion;
+select * from provincia;
+select * from pedido_venta;
+
+--> agregar el nombre de la tabla en application.properties al igual que el user y password
