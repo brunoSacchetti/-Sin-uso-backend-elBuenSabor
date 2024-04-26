@@ -51,9 +51,23 @@ public abstract class BaseFacadeImpl<E extends BaseEntidad,D extends BaseDto,ID 
         baseService.deleteById(id);
     }
 
-    public D update(D request, ID id){
+    /*public D update(D request, ID id){
         var entityToUpdate = baseMapper.toEntity(request);
         var entityUpdated = baseService.update(entityToUpdate);
+        return baseMapper.toDTO(entityUpdated);
+    }*/
+
+    public D update(D request, ID id){
+        // Primero, convertir el DTO a entidad
+        var entityToUpdate = baseMapper.toEntity(request);
+
+        // Asegurarte de que el ID del DTO se establezca correctamente en la entidad
+        entityToUpdate.setId((Long) id);
+
+        // Llamar al servicio para actualizar la entidad con el ID adecuado
+        var entityUpdated = baseService.update(entityToUpdate);
+
+        // Convertir la entidad actualizada de vuelta a DTO y retornarlo
         return baseMapper.toDTO(entityUpdated);
     }
 

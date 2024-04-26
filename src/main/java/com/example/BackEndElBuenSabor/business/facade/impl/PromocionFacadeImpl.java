@@ -2,6 +2,8 @@ package com.example.BackEndElBuenSabor.business.facade.impl;
 
 import com.example.BackEndElBuenSabor.business.facade.IPromocionFacade;
 import com.example.BackEndElBuenSabor.business.mapper.IBaseMapper;
+import com.example.BackEndElBuenSabor.business.services.IBaseService;
+import com.example.BackEndElBuenSabor.business.services.IPromocionService;
 import com.example.BackEndElBuenSabor.domains.dtos.PromocionDto;
 import com.example.BackEndElBuenSabor.domains.entities.Promocion;
 import org.springframework.beans.factory.annotation.Autowired;

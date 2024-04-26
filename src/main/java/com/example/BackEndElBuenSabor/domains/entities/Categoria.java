@@ -31,6 +31,7 @@ public class Categoria extends BaseEntidad{
     // CATEGORA - CATEGORIA (RECURSIVIDAD)
     @OneToMany
     @JoinColumn(name = "categoria_id")
+    @Builder.Default
     private Set<Categoria> subCategorias = new HashSet<>();
 
 

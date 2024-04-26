@@ -36,6 +36,7 @@ public class Cliente extends BaseEntidad{
     // CLIENTE - PEDIDO
     @OneToMany
     @JoinColumn(name = "cliente_id")
+    @Builder.Default
     private Set<Pedido> pedidosCliente = new HashSet<Pedido>();
 
     // CLIENTE - DOMICILIO
@@ -45,6 +46,7 @@ public class Cliente extends BaseEntidad{
             joinColumns = @JoinColumn(name = "cliente_id"),
             inverseJoinColumns = @JoinColumn(name = "domicilio_id")
     )
+    @Builder.Default
     private Set<Domicilio> domiciliosCliente = new HashSet<Domicilio>();
 
 }

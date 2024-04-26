@@ -33,13 +33,13 @@ public abstract class BaseControllerImpl<E extends BaseEntidad, D extends BaseDt
         return facade.createNew(entity);
     }
 
-    @PutMapping("/edit/{id}")
+    @PutMapping("/{id}")
     public D edit(@RequestBody D entity, @PathVariable ID id){
         //logger.info("INICIO EDIT {}",entity.getClass());
         return facade.update(entity, id);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void deleteById(@PathVariable ID id){
         //logger.info("INICIO DELETE BY ID");
         facade.deleteById(id);

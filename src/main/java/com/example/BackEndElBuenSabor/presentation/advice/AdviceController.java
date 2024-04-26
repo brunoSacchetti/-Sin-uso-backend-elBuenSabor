@@ -1,6 +1,7 @@
 package com.example.BackEndElBuenSabor.presentation.advice;
 
 import com.example.BackEndElBuenSabor.domains.dtos.ErrorDto;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,18 +9,18 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import java.util.logging.Logger;
+
 
 @ControllerAdvice
 public class AdviceController {
 
-    private static final Logger logger = (Logger) LoggerFactory.getLogger(AdviceController.class);
+    private static final Logger logger = LoggerFactory.getLogger(AdviceController.class);
 
     @ExceptionHandler(value = Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<ErrorDto> handleEmptyInput(Exception e){
         String errorMsg = e.getClass() + " : " + e.getMessage();
-        //logger.error(errorMsg);
+        logger.error(errorMsg);
         return ResponseEntity.internalServerError()
                 .body(ErrorDto.builder()
                         .errorMsg(e.getMessage())

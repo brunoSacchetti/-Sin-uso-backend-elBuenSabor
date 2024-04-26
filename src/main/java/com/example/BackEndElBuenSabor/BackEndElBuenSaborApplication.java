@@ -7,6 +7,7 @@ import com.example.BackEndElBuenSabor.enums.TipoEnvio;
 import com.example.BackEndElBuenSabor.enums.TipoPromocion;
 import com.example.BackEndElBuenSabor.repositories.*;
 import com.example.BackEndElBuenSabor.domains.entities.*;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -21,6 +22,8 @@ public class BackEndElBuenSaborApplication {
 
 	//private static final Logger logger = LoggerFactory.getLogger(BuenSaborBackApplication.class);
 
+	@Autowired
+	private FacturaRepository facturaRepository;
 	@Autowired
 	private ClienteRepository clienteRepository;
 
@@ -78,7 +81,9 @@ public class BackEndElBuenSaborApplication {
 		System.out.println("Estoy Funcionando");
 	}
 
+
 	@Bean
+	@Transactional
 	CommandLineRunner init() {
 		return args -> {
 			//logger.info("----------------ESTOY----FUNCIONANDO---------------------");
@@ -105,7 +110,6 @@ public class BackEndElBuenSaborApplication {
 			// Crear 1 empresa
 			// Crear 2 sucursales para esa empresa
 			// crear los Domicilios para esas sucursales
-
 			Empresa empresaBrown = Empresa.builder().nombre("Lo de Brown").cuil(30503167).razonSocial("Venta de Alimentos").build();
 			Sucursal sucursalChacras = Sucursal.builder().nombre("En chacras").horarioApertura(LocalTime.of(17,0)).horarioCierre(LocalTime.of(23,0)).build();
 			Sucursal sucursalGodoyCruz = Sucursal.builder().nombre("En godoy cruz").horarioApertura(LocalTime.of(16,0)).horarioCierre(LocalTime.of(23,30)).build();
@@ -191,11 +195,6 @@ public class BackEndElBuenSaborApplication {
 			ArticuloManufacturadoDetalle detalle3 = ArticuloManufacturadoDetalle.builder().articuloInsumo(harina).cantidad(350).build();
 			ArticuloManufacturadoDetalle detalle4 = ArticuloManufacturadoDetalle.builder().articuloInsumo(queso).cantidad(650).build();
 			ArticuloManufacturadoDetalle detalle5 = ArticuloManufacturadoDetalle.builder().articuloInsumo(tomate).cantidad(2).build();
-			articuloManufacturadoDetalleRepository.save(detalle1);
-			articuloManufacturadoDetalleRepository.save(detalle2);
-			articuloManufacturadoDetalleRepository.save(detalle3);
-			articuloManufacturadoDetalleRepository.save(detalle4);
-			articuloManufacturadoDetalleRepository.save(detalle5);
 
 			pizzaMuzarella.getArticuloManufacturadoDetalles().add(detalle1);
 			pizzaMuzarella.getArticuloManufacturadoDetalles().add(detalle2);
@@ -253,6 +252,18 @@ public class BackEndElBuenSaborApplication {
 			cliente.getDomiciliosCliente().add(domicilioViamonte);
 			clienteRepository.save(cliente);
 
+			Factura factura = Factura.builder()
+					.fechaFacturacion(LocalDate.now())
+					.mpPaymentId(123456)
+					.mpMerchantOrderId(654321)
+					.mpPreferenceId("pref_123456")
+					.mpPaymentType("credit_card")
+					.formaPago(FormaPago.MERCADOPAGO)  // Asegúrate de configurar esto adecuadamente
+					.totalVenta(100.0)
+					.build();
+
+			facturaRepository.save(factura);
+
 			//Crea un pedido para el cliente
 			Pedido pedido = Pedido.builder().fechaPedido(LocalDate.now())
 					.horaEstimadaFinalizacion(LocalTime.now())
@@ -264,15 +275,30 @@ public class BackEndElBuenSaborApplication {
 					.sucursal(sucursalChacras)
 					.domicilio(domicilioViamonte).build();
 
+			Pedido pedido2 = Pedido.builder().fechaPedido(LocalDate.now()).
+					horaEstimadaFinalizacion(LocalTime.now())
+					.total(1500.0)
+					.totalCosto(1000.0)
+					.estado(Estado.ENTREGADO)
+					.formaPago(FormaPago.EFECTIVO)
+					.tipoEnvio(TipoEnvio.TAKEAWAY)
+					.sucursal(sucursalGodoyCruz)
+					.domicilio(domicilioSanMartin)
+					.build();
+
 			DetallePedido detallePedido1 = DetallePedido.builder().articulo(pizzaMuzarella).cantidad(1).subTotal(200.0).build();
 			DetallePedido detallePedido2 = DetallePedido.builder().articulo(cocaCola).cantidad(2).subTotal(100.0).build();
 
 			pedido.getDetallePedidos().add(detallePedido1);
 			pedido.getDetallePedidos().add(detallePedido2);
+			pedido.setFactura(factura);
 			pedidoRepository.save(pedido);
+
+			pedidoRepository.save(pedido2);
 
 			cliente.getPedidosCliente().add(pedido);
 			clienteRepository.save(cliente);
+
 
 			/*logger.info("----------------Sucursal Chacras ---------------------");
 			logger.info("{}",sucursalChacras);
@@ -282,9 +308,5 @@ public class BackEndElBuenSaborApplication {
 			logger.info("{}",pedido);*/
 		};
 	}
-
-
-
-
 
 }
