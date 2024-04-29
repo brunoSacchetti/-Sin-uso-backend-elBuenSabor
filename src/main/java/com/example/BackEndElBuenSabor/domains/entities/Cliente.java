@@ -13,7 +13,7 @@ import java.util.Set;
 @Setter
 @Getter
 @ToString
-@SuperBuilder
+@Builder
 @Table(name = "cliente")
 public class Cliente extends BaseEntidad{
 
@@ -34,9 +34,7 @@ public class Cliente extends BaseEntidad{
     private Imagen imagen;
 
     // CLIENTE - PEDIDO
-    @OneToMany
-    @JoinColumn(name = "cliente_id")
-    @Builder.Default
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cliente")
     private Set<Pedido> pedidosCliente = new HashSet<Pedido>();
 
     // CLIENTE - DOMICILIO

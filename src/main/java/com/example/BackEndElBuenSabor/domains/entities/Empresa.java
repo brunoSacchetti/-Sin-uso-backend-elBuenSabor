@@ -1,10 +1,8 @@
 package com.example.BackEndElBuenSabor.domains.entities;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -17,7 +15,7 @@ import java.util.Set;
 @Setter
 @Getter
 @ToString
-@SuperBuilder
+@Builder
 @Table(name = "empresa")
 public class Empresa extends BaseEntidad{
 
@@ -28,9 +26,8 @@ public class Empresa extends BaseEntidad{
     private String razonSocial;
 
     //EMPRESA - SUCURSAL
-    @OneToMany // (cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "empresa_id")
-    @Builder.Default
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "empresa")
+    @JsonIgnoreProperties("empresa")
     private Set<Sucursal> sucursales = new HashSet<>();
 
 

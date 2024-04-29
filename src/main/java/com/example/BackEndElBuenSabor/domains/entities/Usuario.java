@@ -10,10 +10,11 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @Getter
 @ToString
-@SuperBuilder
+@Builder
 @Table(name = "usuario")
 public class Usuario extends BaseEntidad{
 
+    //@Column(unique = true)
     private String auth0Id;
 
     private String username;

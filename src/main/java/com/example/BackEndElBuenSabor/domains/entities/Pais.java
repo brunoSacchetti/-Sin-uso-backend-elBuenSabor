@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 @Getter
 @ToString
-@SuperBuilder
+@Builder
 @Table(name = "pais")
 public class Pais extends BaseEntidad{
 

@@ -1,5 +1,6 @@
 package com.example.BackEndElBuenSabor.domains.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -15,7 +16,7 @@ import java.util.Set;
 @Setter
 @Getter
 @ToString
-@SuperBuilder
+@Builder
 @Table(name = "sucursal_empresa")
 public class Sucursal extends BaseEntidad {
 
@@ -25,9 +26,15 @@ public class Sucursal extends BaseEntidad {
 
     private LocalTime horarioCierre;
 
+    //SUCURSAL - EMPRESA
+    @ManyToOne
+    @JoinColumn(name = "empresa_id")
+    @JsonIgnoreProperties("sucursales") //es especialmente útil para evitar problemas de recursividad en relaciones bidireccionales y para evitar que información no deseada sea expuesta a través de APIs.
+    private Empresa empresa;
+
+
     // SUCURSAL - DOMICILIO
     @OneToOne
-    @JoinColumn(name = "domicilio_id")
     private Domicilio domicilio;
 
     // SUCURSAL - CATEGORIA

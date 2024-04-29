@@ -1,9 +1,7 @@
 package com.example.BackEndElBuenSabor.domains.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -16,24 +14,24 @@ import java.util.Set;
 @Setter
 @Getter
 @ToString
-@SuperBuilder
+@Builder
 @Table(name = "categoria_articulo")
 public class Categoria extends BaseEntidad{
 
     private String denominacion;
 
     // CATEGORIA - ARTICULO
-    @OneToMany
-    @JoinColumn(name = "categoria_id")
-    @Builder.Default
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "categoria")
     private Set<Articulo> articulos = new HashSet<>();
 
     // CATEGORA - CATEGORIA (RECURSIVIDAD)
-    @OneToMany
-    @JoinColumn(name = "categoria_id")
-    @Builder.Default
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "categoriaMayor")
+    @JsonIgnoreProperties("categoriaMayor")
     private Set<Categoria> subCategorias = new HashSet<>();
 
-
+    @ManyToOne
+    @JoinColumn(name = "categoria_mayor_id")
+    @JsonIgnoreProperties("subCategorias") // no cree recursividad en relacioens bidireccionales
+    private Categoria categoriaMayor;
 
 }

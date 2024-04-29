@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @Getter
 @ToString
-@SuperBuilder
+@Builder
 @Table(name = "Provincia")
 public class Provincia extends BaseEntidad{
 

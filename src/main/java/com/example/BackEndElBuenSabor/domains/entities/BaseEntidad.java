@@ -22,6 +22,9 @@ public abstract class BaseEntidad implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Builder.Default
+    protected boolean eliminado = false;
+
 
 
 

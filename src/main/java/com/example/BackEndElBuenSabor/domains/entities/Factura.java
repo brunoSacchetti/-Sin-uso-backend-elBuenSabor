@@ -16,7 +16,7 @@ import java.util.Date;
 @Setter
 @Getter
 @ToString
-@SuperBuilder
+@Builder
 @Table(name = "factura_venta")
 public class Factura extends BaseEntidad{
 

@@ -17,7 +17,7 @@ import java.util.Set;
 @Setter
 @Getter
 @ToString
-@SuperBuilder
+@Builder
 @Table(name = "promocion")
 public class Promocion extends BaseEntidad {
 
@@ -38,11 +38,10 @@ public class Promocion extends BaseEntidad {
             inverseJoinColumns = @JoinColumn(name = "articulo_id")
     )
     @Builder.Default
-    private Set<Articulo> articulos = new HashSet<Articulo>();
+    private Set<Articulo> articulos = new HashSet<>();
 
     // PROMOCION - IMAGEN
-    @OneToMany
-    @JoinColumn(name = "promocion_id")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "promocion")
     @Builder.Default
     private Set<Imagen> imagenes = new HashSet<>();
 

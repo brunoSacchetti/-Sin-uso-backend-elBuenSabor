@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @Getter
 @ToString
-@SuperBuilder
+@Builder
 @Table(name = "unidad_medida")
 public class UnidadMedida extends BaseEntidad{
     private String denominacion;

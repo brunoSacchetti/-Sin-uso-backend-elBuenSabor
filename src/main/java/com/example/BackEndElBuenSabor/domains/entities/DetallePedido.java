@@ -10,7 +10,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @Getter
 @ToString
-@SuperBuilder
+@Builder
 @Table(name = "detalle_pedido")
 public class DetallePedido extends BaseEntidad{
 
@@ -20,7 +20,17 @@ public class DetallePedido extends BaseEntidad{
 
     // DETALLE PEDIDO - ARTICULO
     @ManyToOne
+    @JoinColumn(name = "articulo_id")
     private Articulo articulo;
+
+    // DETALLER PEDIDO - PEDIDO
+    @ManyToOne
+    @JoinColumn(name = "pedido_id")
+    private Pedido pedido;
+
+
+
+
 
 
 

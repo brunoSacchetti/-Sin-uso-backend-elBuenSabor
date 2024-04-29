@@ -273,7 +273,8 @@ public class BackEndElBuenSaborApplication {
 					.formaPago(FormaPago.MERCADOPAGO)
 					.tipoEnvio(TipoEnvio.DELIVERY)
 					.sucursal(sucursalChacras)
-					.domicilio(domicilioViamonte).build();
+					.domicilio(domicilioViamonte)
+					.build();
 
 			Pedido pedido2 = Pedido.builder().fechaPedido(LocalDate.now()).
 					horaEstimadaFinalizacion(LocalTime.now())
@@ -292,13 +293,14 @@ public class BackEndElBuenSaborApplication {
 			pedido.getDetallePedidos().add(detallePedido1);
 			pedido.getDetallePedidos().add(detallePedido2);
 			pedido.setFactura(factura);
-			pedidoRepository.save(pedido);
 
+			pedidoRepository.save(pedido);
 			pedidoRepository.save(pedido2);
+
+			System.out.println(pedido.getDomicilio());
 
 			cliente.getPedidosCliente().add(pedido);
 			clienteRepository.save(cliente);
-
 
 			/*logger.info("----------------Sucursal Chacras ---------------------");
 			logger.info("{}",sucursalChacras);

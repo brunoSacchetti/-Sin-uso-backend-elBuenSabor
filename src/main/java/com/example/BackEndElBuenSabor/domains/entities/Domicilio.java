@@ -1,6 +1,7 @@
 package com.example.BackEndElBuenSabor.domains.entities;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -15,8 +16,7 @@ import java.util.Set;
 @Setter
 @Getter
 @ToString
-@SuperBuilder
-@Table(name = "domicilio")
+@Builder
 public class Domicilio extends BaseEntidad{
 
     private String calle;
@@ -31,6 +31,7 @@ public class Domicilio extends BaseEntidad{
 
     // DOMICILIO - LOCALIDAD
     @ManyToOne // no es necesario joincolumn ya que crea la columna automaticamente
+    @JoinColumn(name = "localidad_id")
     private Localidad localidad;
 
 

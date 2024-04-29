@@ -13,7 +13,6 @@ import java.util.Set;
 @Setter
 @Getter
 @ToString
-@SuperBuilder
 @Table(name = "articulo_insumo")
 public class ArticuloInsumo extends Articulo{
 
@@ -25,6 +24,12 @@ public class ArticuloInsumo extends Articulo{
 
     private Integer stockMaximo;
 
-
-
+    @Builder
+    public ArticuloInsumo(String denominacion, Double precioVenta, UnidadMedida unidadMedida, Double precioCompra, Boolean esParaElaborar, Integer stockActual, Integer stockMaximo) {
+        super(denominacion, precioVenta, unidadMedida);
+        this.precioCompra = precioCompra;
+        this.esParaElaborar = esParaElaborar;
+        this.stockActual = stockActual;
+        this.stockMaximo = stockMaximo;
+    }
 }

@@ -1,9 +1,6 @@
 package com.example.BackEndElBuenSabor.domains.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -17,8 +14,9 @@ import java.util.Set;
 @Getter
 @ToString
 @Setter
-@SuperBuilder //sirve para crear objetos e inicializar los atributos de clases heredadas
+//@SuperBuilder sirve para crear objetos e inicializar los atributos de clases heredadas
 // Esta clase es una generalizacion de articulo insumo y manufacturado
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Articulo extends BaseEntidad {
 
     protected String denominacion;
@@ -26,22 +24,26 @@ public class Articulo extends BaseEntidad {
 
 
     //ARTICULO - IMAGEN
-    @OneToMany
-    //SE AGREGA EL JOIN COLUMN PARA QUE JPA NO CREE LA TABLA INTERMEDIA EN UNA RELACION ONE TO MANY
-    //DE ESTA MANERA PONE EL FOREIGN KEY 'cliente_id' EN LA TABLA DE LOS MANY
-    @JoinColumn(name = "articulo_id")
-    @Builder.Default
-    private Set<Imagen> imagenes = new HashSet<Imagen>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "articulo")
+    private Set<Imagen> imagenes;
 
 
     //ARTICULO - UNIDAD MEDIDA
     @ManyToOne
+    @JoinColumn(name = "unidad_medida_id")
     private UnidadMedida unidadMedida;
+
+    //ARTICULO - CATEGORIA
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
 
     // CONSTRUCTOR DE ARTICULO SIN IMAGEN
     public Articulo(String denominacion, Double precioVenta, UnidadMedida unidadMedida) {
+        super();
         this.denominacion = denominacion;
         this.precioVenta = precioVenta;
         this.unidadMedida = unidadMedida;
+        this.imagenes = new HashSet<Imagen>();
     }
 }

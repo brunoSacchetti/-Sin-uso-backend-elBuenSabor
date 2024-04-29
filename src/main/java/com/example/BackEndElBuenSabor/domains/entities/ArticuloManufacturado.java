@@ -13,7 +13,6 @@ import java.util.Set;
 @Setter
 @Getter
 @ToString
-@SuperBuilder
 @Table(name = "articulo_manufacturado")
 public class ArticuloManufacturado extends Articulo{
 
@@ -25,12 +24,15 @@ public class ArticuloManufacturado extends Articulo{
 
 
     //ARTICULO MANUFACTURADO - ARTICULO MANUFACTURADO DETALLE
-    @OneToMany
-    //SE AGREGA EL JOIN COLUMN PARA QUE JPA NO CREE LA TABLA INTERMEDIA EN UNA RELACION ONE TO MANY
-    //DE ESTA MANERA PONE EL FOREIGN KEY 'articuloManufacturado_id' EN LA TABLA DE LOS MANY
-    @JoinColumn(name = "articulo_manufacturado_id")
-    //SE AGREGA EL BUILDER.DEFAULT PARA QUE BUILDER NO SOBREESCRIBA LA INICIALIZACION DE LA LISTA
-    @Builder.Default
-    private Set<ArticuloManufacturadoDetalle> articuloManufacturadoDetalles = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "articuloManufacturado")
+    private Set<ArticuloManufacturadoDetalle> articuloManufacturadoDetalles;
 
+    @Builder
+    public ArticuloManufacturado(String denominacion, Double precioVenta,UnidadMedida unidadMedida, String descripcion, Integer tiempoEstimadoMinutos, String preparacion, Set<ArticuloManufacturadoDetalle> articuloManufacturadoDetalles) {
+        super(denominacion, precioVenta, unidadMedida);
+        this.descripcion = descripcion;
+        this.tiempoEstimadoMinutos = tiempoEstimadoMinutos;
+        this.preparacion = preparacion;
+        this.articuloManufacturadoDetalles = new HashSet<>();
+    }
 }

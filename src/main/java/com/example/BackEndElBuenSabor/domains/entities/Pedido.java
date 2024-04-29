@@ -18,8 +18,8 @@ import java.util.Set;
 @Setter
 @Getter
 @ToString
-@SuperBuilder
-@Table(name = "pedido_venta")
+@Builder
+@Table(name = "pedido")
 public class Pedido extends BaseEntidad{
 
     private LocalTime horaEstimadaFinalizacion;
@@ -38,10 +38,12 @@ public class Pedido extends BaseEntidad{
 
     // PEDIDO - DOMICILIO
     @ManyToOne
+    @JoinColumn(name = "domicilio_id")
     private Domicilio domicilio;
 
     // PEDIDO - SUCURSAL EMPRESA
     @ManyToOne
+    @JoinColumn(name = "sucursal_id")
     private Sucursal sucursal;
 
     // PEDIDO - FACTURA
@@ -52,10 +54,12 @@ public class Pedido extends BaseEntidad{
     //DE ESTA MANERA PONE EL FOREIGN KEY 'pedido_id' EN LA TABLA DE LOS MANY
 
     // PEDIDO - DETALLE PEDIDO
-    @OneToMany(cascade = CascadeType.ALL) // SE COLOCA EL CASCADEO PARA ELIMINAR EL DETALLE PEDIDO CUANDO SE DESEE ELIMINAR
-    @JoinColumn(name = "pedido_id")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "pedido") // SE COLOCA EL CASCADEO PARA ELIMINAR EL DETALLE PEDIDO CUANDO SE DESEE ELIMINAR
     @Builder.Default
     private Set<DetallePedido> detallePedidos = new HashSet<>();
 
-
+    // PEDIDO - CLIENTE
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
 }
