@@ -27,7 +27,8 @@ public class Empresa extends BaseEntidad{
 
     //EMPRESA - SUCURSAL
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "empresa")
-    @JsonIgnoreProperties("empresa")
+    //@JsonIgnoreProperties("empresa")
+    @Builder.Default
     private Set<Sucursal> sucursales = new HashSet<>();
 
 

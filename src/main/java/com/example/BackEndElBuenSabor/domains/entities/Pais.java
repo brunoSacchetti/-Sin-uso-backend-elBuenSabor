@@ -8,7 +8,9 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -21,5 +23,9 @@ import java.util.List;
 public class Pais extends BaseEntidad{
 
     private String nombre;
+
+    @OneToMany(mappedBy = "pais")
+    @Builder.Default
+    private Set<Provincia> provincias = new HashSet<>();
 
 }

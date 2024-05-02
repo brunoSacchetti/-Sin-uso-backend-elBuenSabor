@@ -29,16 +29,17 @@ public class Sucursal extends BaseEntidad {
     //SUCURSAL - EMPRESA
     @ManyToOne
     @JoinColumn(name = "empresa_id")
-    @JsonIgnoreProperties("sucursales") //es especialmente útil para evitar problemas de recursividad en relaciones bidireccionales y para evitar que información no deseada sea expuesta a través de APIs.
+    //@JsonIgnoreProperties("sucursales") //es especialmente útil para evitar problemas de recursividad en relaciones bidireccionales y para evitar que información no deseada sea expuesta a través de APIs.
     private Empresa empresa;
 
 
     // SUCURSAL - DOMICILIO
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "domicilio_id")
     private Domicilio domicilio;
 
     // SUCURSAL - CATEGORIA
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "sucursal_categoria",
                 joinColumns = @JoinColumn(name = "sucursal_id"),
                 inverseJoinColumns = @JoinColumn(name = "categoria_id"))
@@ -46,11 +47,13 @@ public class Sucursal extends BaseEntidad {
     private Set<Categoria> categorias = new HashSet<>();
 
     // SUCURSAL - PROMOCION
-    @ManyToMany
-    @JoinTable(name = "sucursal_promocion",
-            joinColumns = @JoinColumn(name = "sucursal_id"),
-            inverseJoinColumns = @JoinColumn(name = "promocion_id"))
+    @OneToMany(mappedBy = "sucursal", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @Builder.Default
     private Set<Promocion> promociones = new HashSet<>();
+
+    // SUCURSAL - PEDIDO
+    @OneToMany(mappedBy = "sucursal")
+    @Builder.Default
+    private Set<Pedido> pedidos = new HashSet<>();
 
 }

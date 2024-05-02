@@ -19,4 +19,7 @@ public class Usuario extends BaseEntidad{
 
     private String username;
 
+    @OneToOne(mappedBy = "usuario")
+    private Cliente cliente;
+
 }

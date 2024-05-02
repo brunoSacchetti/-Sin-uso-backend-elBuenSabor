@@ -29,10 +29,21 @@ public class Domicilio extends BaseEntidad{
 
     private Integer nroDepto;
 
-    // DOMICILIO - LOCALIDAD
-    @ManyToOne // no es necesario joincolumn ya que crea la columna automaticamente
+    @ManyToOne
     @JoinColumn(name = "localidad_id")
     private Localidad localidad;
+
+    @ManyToMany(mappedBy = "domicilios", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @Builder.Default
+    private Set<Cliente> clientes = new HashSet<>();
+
+
+    @OneToOne(mappedBy = "domicilio")
+    private Sucursal sucursal;
+
+    @OneToMany(mappedBy = "domicilio")
+    @Builder.Default
+    private Set<Pedido> pedidos = new HashSet<>();
 
 
 }

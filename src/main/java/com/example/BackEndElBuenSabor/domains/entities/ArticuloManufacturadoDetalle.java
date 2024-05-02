@@ -1,10 +1,7 @@
 package com.example.BackEndElBuenSabor.domains.entities;
 
 import com.fasterxml.jackson.databind.ser.Serializers;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -21,7 +18,7 @@ public class ArticuloManufacturadoDetalle extends BaseEntidad {
     private Integer cantidad;
 
     // ARTICULO MANUFACTURADO DETALLE - ARTICULO INSUMO
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn(name = "articulo_insumo_id")
     private ArticuloInsumo articuloInsumo;
 

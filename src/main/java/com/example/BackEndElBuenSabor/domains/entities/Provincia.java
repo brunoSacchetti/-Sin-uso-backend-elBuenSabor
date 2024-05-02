@@ -5,7 +5,9 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -23,4 +25,9 @@ public class Provincia extends BaseEntidad{
     @ManyToOne
     @JoinColumn(name = "pais_id")
     private Pais pais;
+
+    //PROVINCIA - LOCALIDADES
+    @OneToMany(mappedBy = "provincia")
+    @Builder.Default
+    private Set<Localidad> localidades = new HashSet<>();
 }

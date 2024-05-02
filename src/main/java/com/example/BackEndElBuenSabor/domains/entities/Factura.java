@@ -2,6 +2,8 @@ package com.example.BackEndElBuenSabor.domains.entities;
 
 import com.example.BackEndElBuenSabor.enums.FormaPago;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -33,6 +35,10 @@ public class Factura extends BaseEntidad{
     private FormaPago formaPago;
 
     private Double totalVenta;
+
+    @OneToOne
+    @JoinColumn(name = "pedido_id")
+    private Pedido pedido;
 
 }
 

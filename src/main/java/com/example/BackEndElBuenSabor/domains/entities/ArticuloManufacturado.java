@@ -13,6 +13,7 @@ import java.util.Set;
 @Setter
 @Getter
 @ToString
+@SuperBuilder
 @Table(name = "articulo_manufacturado")
 public class ArticuloManufacturado extends Articulo{
 
@@ -25,14 +26,7 @@ public class ArticuloManufacturado extends Articulo{
 
     //ARTICULO MANUFACTURADO - ARTICULO MANUFACTURADO DETALLE
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "articuloManufacturado")
-    private Set<ArticuloManufacturadoDetalle> articuloManufacturadoDetalles;
+    @Builder.Default
+    private Set<ArticuloManufacturadoDetalle> articuloManufacturadoDetalles = new HashSet<>();
 
-    @Builder
-    public ArticuloManufacturado(String denominacion, Double precioVenta,UnidadMedida unidadMedida, String descripcion, Integer tiempoEstimadoMinutos, String preparacion, Set<ArticuloManufacturadoDetalle> articuloManufacturadoDetalles) {
-        super(denominacion, precioVenta, unidadMedida);
-        this.descripcion = descripcion;
-        this.tiempoEstimadoMinutos = tiempoEstimadoMinutos;
-        this.preparacion = preparacion;
-        this.articuloManufacturadoDetalles = new HashSet<>();
-    }
 }

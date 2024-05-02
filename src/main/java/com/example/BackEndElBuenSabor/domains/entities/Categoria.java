@@ -21,17 +21,23 @@ public class Categoria extends BaseEntidad{
     private String denominacion;
 
     // CATEGORIA - ARTICULO
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "categoria")
+    @OneToMany(mappedBy = "categoria")
+    @Builder.Default
     private Set<Articulo> articulos = new HashSet<>();
 
     // CATEGORA - CATEGORIA (RECURSIVIDAD)
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "categoriaMayor")
-    @JsonIgnoreProperties("categoriaMayor")
+    //@JsonIgnoreProperties("categoriaMayor")
+    @Builder.Default
     private Set<Categoria> subCategorias = new HashSet<>();
 
     @ManyToOne
-    @JoinColumn(name = "categoria_mayor_id")
-    @JsonIgnoreProperties("subCategorias") // no cree recursividad en relacioens bidireccionales
+    @JoinColumn(name = "categoria_padre_id")
+    //@JsonIgnoreProperties("subCategorias") // no cree recursividad en relacioens bidireccionales
     private Categoria categoriaMayor;
+
+    @ManyToMany(mappedBy = "categorias")
+    @Builder.Default
+    private Set<Sucursal> sucursales = new HashSet<>();
 
 }

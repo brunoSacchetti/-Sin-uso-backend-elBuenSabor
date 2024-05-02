@@ -249,7 +249,7 @@ public class BackEndElBuenSaborApplication {
 					.apellido("Wilder")
 					.telefono("2615920825")
 					.build();
-			cliente.getDomiciliosCliente().add(domicilioViamonte);
+			cliente.getDomicilios().add(domicilioViamonte);
 			clienteRepository.save(cliente);
 
 			Factura factura = Factura.builder()
@@ -299,7 +299,7 @@ public class BackEndElBuenSaborApplication {
 
 			System.out.println(pedido.getDomicilio());
 
-			cliente.getPedidosCliente().add(pedido);
+			cliente.getPedidos().add(pedido);
 			clienteRepository.save(cliente);
 
 			/*logger.info("----------------Sucursal Chacras ---------------------");

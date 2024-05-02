@@ -31,7 +31,7 @@ public class Promocion extends BaseEntidad {
     private TipoPromocion tipoPromocion;
 
     // PROMOCION - ARTICULO
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinTable(
             name = "promocion_articulo",
             joinColumns = @JoinColumn(name = "promocion_id"),
@@ -44,5 +44,10 @@ public class Promocion extends BaseEntidad {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "promocion")
     @Builder.Default
     private Set<Imagen> imagenes = new HashSet<>();
+
+    //PROMOCION - SUCURSAL
+    @ManyToOne
+    @JoinColumn(name = "sucursal_id")
+    private Sucursal sucursal;
 
 }

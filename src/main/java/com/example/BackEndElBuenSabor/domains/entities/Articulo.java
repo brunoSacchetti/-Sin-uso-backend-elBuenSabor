@@ -14,10 +14,10 @@ import java.util.Set;
 @Getter
 @ToString
 @Setter
-//@SuperBuilder sirve para crear objetos e inicializar los atributos de clases heredadas
+@SuperBuilder //sirve para crear objetos e inicializar los atributos de clases heredadas
 // Esta clase es una generalizacion de articulo insumo y manufacturado
-@Inheritance(strategy = InheritanceType.JOINED)
-public class Articulo extends BaseEntidad {
+@Inheritance(strategy = InheritanceType.JOINED) // TABLE_PER_CLASS
+public abstract class Articulo extends BaseEntidad {
 
     protected String denominacion;
     protected Double precioVenta;
@@ -25,25 +25,29 @@ public class Articulo extends BaseEntidad {
 
     //ARTICULO - IMAGEN
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "articulo")
-    private Set<Imagen> imagenes;
+    @Builder.Default
+    private Set<Imagen> imagenes = new HashSet<>();
 
 
     //ARTICULO - UNIDAD MEDIDA
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn(name = "unidad_medida_id")
     private UnidadMedida unidadMedida;
 
+
     //ARTICULO - CATEGORIA
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
-    // CONSTRUCTOR DE ARTICULO SIN IMAGEN
-    public Articulo(String denominacion, Double precioVenta, UnidadMedida unidadMedida) {
-        super();
-        this.denominacion = denominacion;
-        this.precioVenta = precioVenta;
-        this.unidadMedida = unidadMedida;
-        this.imagenes = new HashSet<Imagen>();
-    }
+    //ARTICULO - DETALLE PEDIDO
+    @OneToMany(mappedBy = "articulo")
+    @Builder.Default
+    protected Set<DetallePedido> detallePedidos = new HashSet<>();
+
+    //ARTICULO - PROMOCIONES
+    @ManyToMany(mappedBy = "articulos", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @Builder.Default
+    protected Set<Promocion> estaEnPromociones = new HashSet<>();
+
 }

@@ -19,7 +19,7 @@ public class DetallePedido extends BaseEntidad{
     private Integer cantidad;
 
     // DETALLE PEDIDO - ARTICULO
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn(name = "articulo_id")
     private Articulo articulo;
 

@@ -5,7 +5,9 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -20,11 +22,14 @@ public class Localidad extends BaseEntidad{
     private String nombre;
 
     // LOCALIDAD - PROVINCIA
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn(name = "provincia_id")
     private Provincia provincia;
 
-
+    // LOCALIDAD - DOMICILIO
+    @OneToMany(mappedBy = "localidad")
+    @Builder.Default
+    private Set<Domicilio> domicilios = new HashSet<>();
 
 
 

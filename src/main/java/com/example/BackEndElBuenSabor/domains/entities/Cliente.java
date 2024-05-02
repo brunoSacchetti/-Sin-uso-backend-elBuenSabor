@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,26 +26,31 @@ public class Cliente extends BaseEntidad{
 
     private String email;
 
+    private LocalDate fechaNacimiento;
+
     // CLIENTE - USUARIO
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
     // CLIENTE - IMAGEN
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "imagen_id")
     private Imagen imagen;
 
     // CLIENTE - PEDIDO
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cliente")
-    private Set<Pedido> pedidosCliente = new HashSet<Pedido>();
+    @Builder.Default
+    private Set<Pedido> pedidos = new HashSet<Pedido>();
 
     // CLIENTE - DOMICILIO
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "cliente_domicilio",
             joinColumns = @JoinColumn(name = "cliente_id"),
             inverseJoinColumns = @JoinColumn(name = "domicilio_id")
     )
     @Builder.Default
-    private Set<Domicilio> domiciliosCliente = new HashSet<Domicilio>();
+    private Set<Domicilio> domicilios = new HashSet<Domicilio>();
 
 }

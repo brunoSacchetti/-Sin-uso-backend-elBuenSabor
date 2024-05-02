@@ -19,7 +19,7 @@ import java.io.Serializable;
 public abstract class BaseEntidad implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE) // IDENTITY - SEQUENCE
     private Long id;
 
     @Builder.Default

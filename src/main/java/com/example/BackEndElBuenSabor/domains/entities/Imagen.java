@@ -1,9 +1,6 @@
 package com.example.BackEndElBuenSabor.domains.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -17,6 +14,10 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "imagen")
 public class Imagen extends BaseEntidad{
     private String url;
+
+    // IMAGEN - CLIENTE
+    @OneToOne(mappedBy = "imagen")
+    private Cliente cliente;
 
     // IMAGEN - ARTICULO
     @ManyToOne

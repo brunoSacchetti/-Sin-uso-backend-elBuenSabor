@@ -46,7 +46,7 @@ public class ClienteServiceImpl extends BaseServiceImpl<Cliente,Long> implements
         var pedidos = pedidoService.getAll().stream()
                 .filter(pedido -> pedidosIds.contains(pedido.getId()))
                 .collect(Collectors.toList());
-        pedidos.forEach(pedido -> cliente.getPedidosCliente().add(pedido));
+        pedidos.forEach(pedido -> cliente.getPedidos().add(pedido));
         return update(cliente);
     }
 
@@ -54,12 +54,12 @@ public class ClienteServiceImpl extends BaseServiceImpl<Cliente,Long> implements
     public Cliente removerPedidos(Long id, List<Long> pedidosIds) {
         var cliente = getById(id);
         var tempSet = new HashSet<Pedido>();
-        cliente.getPedidosCliente().forEach(pedido -> {
+        cliente.getPedidos().forEach(pedido -> {
             if(pedidosIds.contains(pedido.getId())){
                 tempSet.add(pedido);
             }
         });
-        cliente.getPedidosCliente().removeAll(tempSet);
+        cliente.getPedidos().removeAll(tempSet);
         return update(cliente);
     }
 
@@ -69,7 +69,7 @@ public class ClienteServiceImpl extends BaseServiceImpl<Cliente,Long> implements
         var domicilios = domicilioService.getAll().stream()
                 .filter(domicilio -> domiciliosIds.contains(domicilio.getId()))
                 .collect(Collectors.toList());
-        domicilios.forEach(domicilio -> cliente.getDomiciliosCliente().add(domicilio));
+        domicilios.forEach(domicilio -> cliente.getDomicilios().add(domicilio));
         return update(cliente);
     }
 
@@ -77,12 +77,12 @@ public class ClienteServiceImpl extends BaseServiceImpl<Cliente,Long> implements
     public Cliente removerDomicilios(Long id, List<Long> domiciliosIds) {
         var cliente = getById(id);
         var tempSet = new HashSet<Domicilio>();
-        cliente.getDomiciliosCliente().forEach(domicilio -> {
+        cliente.getDomicilios().forEach(domicilio -> {
             if(domiciliosIds.contains(domicilio.getId())){
                 tempSet.add(domicilio);
             }
         });
-        cliente.getDomiciliosCliente().removeAll(tempSet);
+        cliente.getDomicilios().removeAll(tempSet);
         return update(cliente);
     }
 }
